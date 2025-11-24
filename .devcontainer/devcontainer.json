@@ -1,0 +1,14 @@
+{
+    "name": "C# .NET Core Dev Container",
+    "image": "dotnet10dev:latest",
+    "workspaceFolder": "/workspace",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-dotnettools.csharp"
+            ]
+        }
+    }
+}
+  

@@ -1,0 +1,37 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+
+# Environment files
+.env
+.env.*
+
+# Input files (if they contain puzzle input)
+**/input.txt
