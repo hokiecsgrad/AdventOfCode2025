@@ -9,7 +9,7 @@ out/
 *.userprefs
 
 # IDE files
-.vscode/
+# .vscode/  I actually want the VSCode settings to be shared
 .idea/
 *.swp
 *.swo
