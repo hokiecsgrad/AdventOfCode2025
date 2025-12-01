@@ -1,0 +1,49 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Newest Build",
+            "type": "coreclr",
+            "request": "launch",
+            // We use a task to ensure a build happens first
+            "preLaunchTask": "build-active-project",
+            "program": "${input:findNewestDll}",
+            "args": [],
+            "cwd": "${input:deriveCwdFromDll}",
+            "console": "integratedTerminal",
+            "stopAtEntry": false
+        }
+    ],
+    "inputs": [
+        {
+            "id": "findNewestDll",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                // Find all DLLs in bin/Debug folders
+                // -type f: files only
+                // -printf '%T@ %p\n': print timestamp and path
+                // sort -k1nr: sort by timestamp (newest first)
+                // head -n 1: take the top one
+                // cut -d' ' -f2-: remove the timestamp from the output string
+                "command": "find \"${workspaceFolder}\" -path '*/bin/Debug/net*/Day*.dll' -type f -printf '%T@ %p\n' | sort -k1nr | head -n 1 | cut -d' ' -f2-",
+                "useFirstResult": true
+            }
+        },
+        {
+            "id": "deriveCwdFromDll",
+            "type": "command",
+            "command": "shellCommand.execute",
+            "args": {
+                // Finds the EXACT SAME DLL path, but strips the filename and bin folders 
+                // to get back to the 'src' folder where input.txt lives.
+                // We use 'dirname' 4 times to go from:
+                // .../src/bin/Debug/net8.0/Day01.dll
+                // to:
+                // .../src
+                "command": "find \"${workspaceFolder}\" -path '*/bin/Debug/net*/Day*.dll' -type f -printf '%T@ %p\n' | sort -k1nr | head -n 1 | cut -d' ' -f2- | xargs dirname | xargs dirname | xargs dirname | xargs dirname",
+                "useFirstResult": true
+            }
+        }
+    ]
+}

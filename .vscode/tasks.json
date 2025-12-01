@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-active-project",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                // If a file is open, use that folder.
+                // If NO file is open (sidebar focus), prompt the user to pick a folder.
+                "${fileDirname:-${input:pickDay}}" 
+            ],
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "pickDay",
+            "type": "pickString",
+            "description": "Active file not detected. Which day are you building?",
+            "options": [
+                "Day01/src",
+                "Day02/src",
+                "Day03/src"
+            ]
+        }
+    ]
+}
