@@ -9,7 +9,7 @@
                 "build",
                 // If a file is open, use that folder.
                 // If NO file is open (sidebar focus), prompt the user to pick a folder.
-                "${fileDirname:-${input:pickDay}}" 
+                "${fileDirname:-${input:pickDay}}"
             ],
             "problemMatcher": "$msCompile",
             "group": {
@@ -25,6 +25,7 @@
             "description": "Active file not detected. Which day are you building?",
             "options": [
                 "Day01/src",
+                "Day02/src",
             ]
         }
     ]
