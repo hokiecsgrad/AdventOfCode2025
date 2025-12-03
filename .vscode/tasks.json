@@ -26,6 +26,7 @@
             "options": [
                 "Day01/src",
                 "Day02/src",
+                "Day03/src",
             ]
         }
     ]
