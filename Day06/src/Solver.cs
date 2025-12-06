@@ -54,6 +54,7 @@ public class Solver
             if (grid[maxRows, i] != ' ')
                 currOperator = grid[maxRows, i];
 
+            // if vertical number is empty, run calculations and add to total
             if (string.IsNullOrWhiteSpace(buildNum) || i == maxCols)
             {
                 long answer = currOperator == '+' ? 0 : 1;
