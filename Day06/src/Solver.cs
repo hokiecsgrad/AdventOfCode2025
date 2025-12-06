@@ -33,58 +33,41 @@ public class Solver
 
     public string SolvePart2(string[] data)
     {
-        BigInteger total = 0;
+        long total = 0;
 
         char[,] grid = CreateGrid(data);
 
         int maxRows = grid.GetLength(0) - 1;
         int maxCols = grid.GetLength(1) - 1;
 
-        int numProbs = 0;
-        for (int col = 0; col <= maxCols; col++)
-            if (grid[maxRows, col] != ' ') numProbs++;
-
-        int minCol = -1;
-        int maxCol = -1;
-        int currCol = 0;
-        for (int i = 1; i <= numProbs; i++)
+        List<long> values = new();
+        char currOperator = ' ';
+        for (int i = 0; i <= maxCols; i++)
         {
-            // find first occurance of operator
-            while (currCol < maxCols && grid[maxRows, currCol] == ' ') currCol++;
-            minCol = currCol;
+            // read number vertically
+            string buildNum = "";
+            for (int numIndex = 0; numIndex < maxRows; numIndex++)
+                buildNum += grid[numIndex, i].ToString();
+            if (!string.IsNullOrWhiteSpace(buildNum)) values.Add(long.Parse(buildNum));
 
-            if (minCol > maxCols) break;
+            // read operator
+            if (grid[maxRows, i] != ' ')
+                currOperator = grid[maxRows, i];
 
-            BigInteger answer = grid[maxRows, minCol] == '+' ? 0 : 1;
-
-            // find next occurance of operator and set maxCol to that -2
-            currCol++;
-            while (currCol <= maxCols && grid[maxRows, currCol] == ' ') currCol++;
-            if (currCol >= maxCols)
-                maxCol = maxCols;
-            else
-                maxCol = currCol - 2;
-
-            // build first number from maxCol
-            currCol = maxCol;
-            while (currCol >= minCol)
+            if (string.IsNullOrWhiteSpace(buildNum) || i == maxCols)
             {
-                string buildNum = "";
-                for (int j = 0; j < maxRows; j++)
-                    buildNum += grid[j, currCol].ToString();
-
-                long currNum = long.Parse(buildNum);
-                switch (grid[maxRows, minCol])
+                long answer = currOperator == '+' ? 0 : 1;
+                foreach (long val in values)
                 {
-                    case '+': answer += currNum; break;
-                    case '*': answer *= currNum; break;
+                    switch (currOperator)
+                    {
+                        case '+': answer += val; break;
+                        case '*': answer *= val; break;
+                    }
                 }
-                currCol--;
+                total += answer;
+                values = new();
             }
-
-            total += answer;
-
-            currCol = maxCol + 1;
         }
 
         return total.ToString();
