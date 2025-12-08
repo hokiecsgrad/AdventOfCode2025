@@ -12,8 +12,6 @@ public class Solver
         (int row, int col) startPos = FindCharPos(grid, 'S');
         laserPositions.Push(startPos);
 
-        // DrawGrid(grid);
-
         int numBeamSplits = 0;
         while (laserPositions.Count > 0)
         {
@@ -35,13 +33,8 @@ public class Solver
                 grid[currPos.row + 1, currPos.col + 1] = '|';
                 laserPositions.Push((currPos.row + 1, currPos.col + 1));
             }
-
-            //DrawGrid(grid);
-            //System.Threading.Thread.Sleep(500);
-
         }
 
-        // DrawGrid(grid);
         return numBeamSplits.ToString();
     }
 
@@ -106,16 +99,4 @@ public class Solver
 
         return (-1, -1);
     }
-
-    private void DrawGrid(char[,] grid)
-    {
-        Console.Clear();
-        for (int row = 0; row < grid.GetLength(0); row++)
-        {
-            for (int col = 0; col < grid.GetLength(1); col++)
-                Console.Write(grid[row, col]);
-            Console.WriteLine();
-        }
-    }
-
 }
